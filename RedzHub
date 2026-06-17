@@ -1,6 +1,3 @@
-есть тут стиллер?
--- ts file was generated at discord.gg/25ms
-
 loadstring(game:HttpGet('https://raw.githubusercontent.com/REDzHUB/LibraryV2/main/redzLib'))()
 
 local v1 = {
