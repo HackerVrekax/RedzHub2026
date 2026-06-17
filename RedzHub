@@ -1,0 +1,1347 @@
+есть тут стиллер?
+-- ts file was generated at discord.gg/25ms
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/REDzHUB/LibraryV2/main/redzLib'))()
+
+local v1 = {
+    Hub = {
+        Title = 'REDz HUB [BETA] : Pet Simulator 99',
+        Animation = 'by : redz9999',
+    },
+    Key = {
+        KeySystem = false,
+        Title = 'Key System',
+        Description = '',
+        KeyLink = '',
+        Keys = {
+            '1234',
+        },
+        Notifi = {
+            Notifications = true,
+            CorrectKey = 'Running the Script...',
+            Incorrectkey = 'The key is incorrect',
+            CopyKeyLink = 'Copied to Clipboard',
+        },
+    },
+}
+
+MakeWindow(v1)
+
+local _ReplicatedStorage = game:GetService('ReplicatedStorage')
+
+game:GetService('TweenService')
+
+local _LocalPlayer = game:GetService('Players').LocalPlayer
+local v4 = _ReplicatedStorage
+local u5 = _ReplicatedStorage.WaitForChild(v4, 'Network', 9000000000)
+local v6 = _LocalPlayer
+
+_LocalPlayer.WaitForChild(v6, 'PlayerGui', 9000000000)
+
+local ___THINGS = workspace:WaitForChild('__THINGS', 9000000000)
+local _Map = workspace:WaitForChild('Map', 9000000000)
+local v9 = ___THINGS
+
+___THINGS.WaitForChild(v9, 'Eggs', 9000000000)
+
+local v10 = ___THINGS
+
+___THINGS.WaitForChild(v10, 'Pets', 9000000000)
+
+local function u19()
+    local _HttpService = game:GetService('HttpService')
+    local _TeleportService = game:GetService('TeleportService')
+    local _PlaceId = game.PlaceId
+    local u14 = 'https://games.roblox.com/v1/games/' .. _PlaceId .. '/servers/Public?sortOrder=Asc&limit=100'
+
+    function ListServers(p15)
+        return _HttpService:JSONDecode((game:HttpGet(u14 .. (p15 and '&cursor=' .. p15 or ''))))
+    end
+
+    local v16 = nil
+
+    repeat
+        task.wait()
+
+        local v17 = ListServers(v16)
+        local v18 = v17.data[1]
+
+        v16 = v17.nextPageCursor
+    until v18
+
+    _TeleportService:TeleportToPlaceInstance(_PlaceId, v18.id, _LocalPlayer)
+end
+local function u23()
+    local _Part = Instance.new('Part', workspace)
+
+    _Part.Name = 'Farm Area <redz hub>'
+    _Part.CastShadow = false
+    _Part.CanCollide = false
+    _Part.Anchored = true
+    _Part.Transparency = 0.6
+    _Part.BrickColor = BrickColor.new('Really red')
+    _Part.Rotation = Vector3.new(0, 0, -90)
+    _Part.Shape = 'Cylinder'
+
+    local v21 = _Part.Parent:FindFirstChild(_Part.Name)
+
+    if v21 and v21 ~= _Part then
+        v21:Destroy()
+    end
+
+    while getgenv().ViewFarmRange do
+        task.wait()
+
+        local _Character = _LocalPlayer.Character
+
+        if _Character then
+            _Character = _LocalPlayer.Character.PrimaryPart
+        end
+        if _Part then
+            _Part.Size = Vector3.new(1, getgenv().AutoFarmDistance * 2, getgenv().AutoFarmDistance * 2)
+
+            if _Character then
+                _Part.Position = _Character.Position
+            end
+        end
+    end
+
+    if _Part then
+        _Part:Destroy()
+    end
+end
+local function u29()
+    local v24, v25, v26 = pairs(___THINGS.Orbs:GetChildren())
+
+    while true do
+        local v27
+
+        v26, v27 = v24(v25, v26)
+
+        if v26 == nil then
+            break
+        end
+
+        local _Character2 = _LocalPlayer.Character
+
+        if _Character2 then
+            _Character2 = _LocalPlayer.Character.PrimaryPart
+        end
+        if _Character2 then
+            v27.CFrame = _Character2.CFrame
+        end
+    end
+end
+local function u35()
+    local v30, v31, v32 = pairs(___THINGS.Lootbags:GetChildren())
+
+    while true do
+        local v33
+
+        v32, v33 = v30(v31, v32)
+
+        if v32 == nil then
+            break
+        end
+        if v33.PrimaryPart then
+            local _Character3 = _LocalPlayer.Character
+
+            if _Character3 then
+                _Character3 = _LocalPlayer.Character.PrimaryPart
+            end
+            if _Character3 then
+                v33.PrimaryPart.CFrame = _Character3.CFrame
+            end
+        end
+    end
+end
+local function u44()
+    local function u42()
+        local v36, v37, v38 = pairs(___THINGS.Breakables:GetChildren())
+        local v39 = {}
+
+        while true do
+            local v40
+
+            v38, v40 = v36(v37, v38)
+
+            if v38 == nil then
+                break
+            end
+
+            local _Character4 = _LocalPlayer.Character
+
+            if _Character4 then
+                _Character4 = _LocalPlayer.Character.PrimaryPart
+            end
+            if v40.Name ~= 'Highlight' and _Character4 and (v40.PrimaryPart and (_Character4.Position - v40.PrimaryPart.Position).Magnitude < getgenv().AutoFarmDistance) then
+                table.insert(v39, v40)
+            end
+        end
+
+        return v39
+    end
+
+    while getgenv().AutoFarmCoins do
+        task.wait()
+        pcall(function()
+            local v43 = u42()[math.random(1, #u42())]
+
+            if v43 then
+                u5.Breakables_PlayerDealDamage:FireServer(v43.Name)
+            end
+        end)
+    end
+end
+
+local v45 = MakeTab({
+    Name = 'Discord',
+})
+local v46 = MakeTab({
+    Name = 'Farm',
+})
+local v47 = MakeTab({
+    Name = 'Shop',
+})
+local v48 = MakeTab({
+    Name = 'Rewards',
+})
+local v49 = MakeTab({
+    Name = 'Mini Games',
+})
+local v50 = MakeTab({
+    Name = 'Player',
+})
+local v51 = MakeTab({
+    Name = 'Teleports',
+})
+local v52 = MakeTab({
+    Name = 'Misc',
+})
+
+AddTextLabel(v45, {
+    'Report all bugs in our discord community',
+})
+AddDiscord(v45, {
+    DiscordIcon = 'rbxassetid://15298567397',
+    DiscordTitle = 'REDz Hub | Community',
+    DiscordLink = 'https://discord.gg/7aR7kNVt4g',
+})
+
+local v53 = {
+    Name = 'Infinite Pet Speed',
+    Callback = function()
+        pcall(function()
+            require(_ReplicatedStorage.Library.Client.PlayerPet).CalculateSpeedMultiplier = function()
+                return math.huge
+            end
+        end)
+    end,
+}
+
+AddButton(v46, v53)
+AddSection(v46, {
+    'Auto Farm',
+})
+AddSlider(v46, {
+    Name = 'Farm Distance',
+    MinValue = 20,
+    MaxValue = 200,
+    Increase = 5,
+    Default = 60,
+    Callback = function(p54)
+        getgenv().AutoFarmDistance = p54
+    end,
+})
+
+local v56 = {
+    Name = 'Auto Farm Nearest',
+    Callback = function(p55)
+        getgenv().AutoFarmCoins = p55
+
+        u44()
+    end,
+}
+
+AddToggle(v46, v56)
+
+local v58 = {
+    Name = 'View Auto Farm Range',
+    Callback = function(p57)
+        getgenv().ViewFarmRange = p57
+
+        u23()
+    end,
+}
+
+AddToggle(v46, v58)
+AddSection(v46, {
+    'Auto Collect',
+})
+
+local v60 = {
+    Name = 'Auto Collect Coins',
+    Callback = function(p59)
+        getgenv().AutoCollectCoins = p59
+
+        task.spawn(function()
+            while getgenv().AutoCollectCoins do
+                task.wait()
+                u29()
+            end
+        end)
+    end,
+}
+
+AddToggle(v46, v60)
+
+local v62 = {
+    Name = 'Auto Collect Lootbags',
+    Callback = function(p61)
+        getgenv().AutoCollectLootbags = p61
+
+        task.spawn(function()
+            while getgenv().AutoCollectLootbags do
+                task.wait()
+                u35()
+            end
+        end)
+    end,
+}
+
+AddToggle(v46, v62)
+AddSection(v46, {
+    'Shiny Relic',
+})
+
+local v71 = {
+    Name = 'Find Shiny Relics',
+    Callback = function(p63)
+        getgenv().FindShinyRelic = p63
+
+        task.spawn(function()
+            local function v68()
+                local v64, v65, v66 = pairs(___THINGS.ShinyRelics:GetChildren())
+
+                while true do
+                    local v67
+
+                    v66, v67 = v64(v65, v66)
+
+                    if v66 == nil then
+                        break
+                    end
+                    if v67.Name == 'ShinyRelic' and v67.Transparency == 0 then
+                        return v67
+                    end
+                end
+            end
+
+            while getgenv().FindShinyRelic do
+                task.wait()
+
+                local _Character5 = _LocalPlayer.Character
+
+                if _Character5 then
+                    _Character5 = _LocalPlayer.Character.PrimaryPart
+                end
+
+                local v70 = v68()
+
+                if _Character5 and v70 then
+                    fireclickdetector(v70.ClickDetector)
+
+                    _Character5.CFrame = v70.CFrame
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v46, v71)
+
+local v72 = {
+    '1 | Cracked Egg',
+    '2 | Spotted Egg',
+    '3 | Paw Egg',
+    '4 | Grass Egg',
+    '5 | Wood Egg',
+    '6 | Pumpkin Egg',
+    '7 | Hive Egg',
+    '8 | Acorn Egg',
+    '9 | Blossom Egg',
+    '10 | Corgi Egg',
+    '11 | Cat Egg',
+    '12 | Dog Egg',
+    '13 | Dragon Egg',
+    '14 | Rock Egg',
+    '15 | Geode Egg',
+    '16 | Hut Egg',
+    '17 | Grave Egg',
+    '18 | Spike Egg',
+    '19 | Sprout Egg',
+    '20 | Mushroom Egg',
+    '21 | Spirit Egg',
+    '22 | Crimson Egg',
+    '23 | Overgrown Egg',
+    '24 | Mossy Egg',
+    '25 | Jungle Egg',
+    '26 | Sandcastle Egg',
+    '27 | Palm Tree Egg',
+    '28 | Beach Ball Egg',
+    '29 | Coral Egg',
+    '30 | Anchor Egg',
+    '31 | Atlantis Egg',
+    '32 | Tropical Egg',
+    '33 | Beach Egg',
+    '34 | Coconut Egg',
+    '35 | Tiki Egg',
+    '36 | Sand Bucket Egg',
+    '37 | Sunny Egg',
+    '38 | Pirate Egg',
+    '39 | Ship Egg',
+    '40 | Zebra Egg',
+    '41 | Cheetah Egg',
+    '42 | Cactus Egg',
+    '43 | Fossil Egg',
+    '44 | Egyptian Egg',
+    '45 | Sandstone Egg',
+    '46 | Cowboy Egg',
+    '47 | Canyon Egg',
+    '48 | Hyena Egg',
+    '49 | Melted Egg',
+    '50 | Snow Egg',
+    '51 | Icicle Egg',
+    '52 | Snowman Egg',
+    '53 | Yeti Egg',
+    '54 | Ice Egg',
+    '55 | Thawed Egg',
+    '56 | Magma Egg',
+    '57 | Obsidian Egg',
+    '58 | Volcano Egg',
+    '59 | Bone Egg',
+    '60 | Tentacle Egg',
+    '61 | Hell Egg',
+    '62 | Metal Egg',
+    '63 | Sakura Egg',
+}
+local u73 = 'EggName, TierEgg'
+
+local function u76(p74)
+    local v75 = string.gsub(p74, ' | ', '|')
+
+    return string.split(v75, '|')[2], string.split(v75, '|')[1]
+end
+
+AddSection(v47, {
+    'Eggs',
+})
+AddDropdown(v47, {
+    Name = 'Select Egg',
+    Options = v72,
+    Default = v72[1],
+    Callback = function(p77)
+        u73 = p77
+    end,
+})
+
+local v80 = {
+    Name = 'Auto Open Egg',
+    Callback = function(p78)
+        getgenv().AutoOpenEgg = p78
+
+        task.spawn(function()
+            while getgenv().AutoOpenEgg do
+                task.wait()
+
+                local v79, _ = u76(u73)
+
+                u5.Eggs_RequestPurchase:InvokeServer(v79, 1)
+            end
+        end)
+    end,
+}
+
+AddToggle(v47, v80)
+AddButton(v47, {
+    Name = '',
+})
+AddSection(v47, {
+    'Traveling Merchant',
+})
+
+local u81 = nil
+local u82 = AddParagraph(v47, {
+    'Merchant Stats',
+    'Spawned : false',
+})
+
+task.spawn(function()
+    local function v88()
+        local v83 = _Map
+        local v84, v85, v86 = pairs(v83:GetChildren())
+
+        while true do
+            local v87
+
+            v86, v87 = v84(v85, v86)
+
+            if v86 == nil then
+                break
+            end
+            if v87:FindFirstChild('INTERACT') and v87.INTERACT:FindFirstChild('TravelingMerchant') then
+                return v87.INTERACT.TravelingMerchant
+            end
+        end
+    end
+
+    while task.wait() do
+        local v89 = v88()
+
+        if v89 then
+            u81 = v89
+
+            SetParagraph(u82, {
+                'Merchant Stats',
+                'Spawned : true' .. '\n' .. 'Area : ' .. v89.Parent.Parent.Name,
+            })
+        else
+            SetParagraph(u82, {
+                'Merchant Stats',
+                'Stats : not Spawn',
+            })
+        end
+    end
+end)
+
+local v91 = {
+    Name = 'Teleport To Merchant',
+    Callback = function()
+        local _Character6 = _LocalPlayer.Character
+
+        if _Character6 then
+            _Character6 = _LocalPlayer.Character.PrimaryPart
+        end
+        if _Character6 and u81 then
+            _Character6.CFrame = u81.Pad.CFrame + Vector3.new(0, 5, 0)
+        end
+    end,
+}
+
+AddButton(v47, v91)
+AddSection(v48, {
+    'Rank',
+})
+
+local v94 = {
+    Name = 'Auto Claim Rank Rewards',
+    Default = true,
+    Callback = function(p92)
+        getgenv().PlaytimeRewards = p92
+
+        task.spawn(function()
+            while getgenv().PlaytimeRewards do
+                for v93 = 1, 40 do
+                    task.wait()
+                    u5.Ranks_ClaimReward:FireServer(v93)
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v48, v94)
+AddSection(v48, {
+    'Playtime Rewards',
+})
+
+local v96 = {
+    Name = 'Auto Claim Playtime Rewards',
+    Default = true,
+    Callback = function(p95)
+        getgenv().PlaytimeRewards = p95
+
+        task.spawn(function()
+            while getgenv().PlaytimeRewards do
+                task.wait()
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(1)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(2)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(3)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(4)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(5)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(6)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(7)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(8)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(9)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(10)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(11)
+                u5:FindFirstChild('Redeem Free Gift'):InvokeServer(12)
+            end
+        end)
+    end,
+}
+
+AddToggle(v48, v96)
+AddSection(v48, {
+    'Daily Chests',
+})
+
+local v98 = {
+    Name = 'Auto Claim Daily Chests',
+    Default = true,
+    Callback = function(p97)
+        getgenv().AutoClaimChest = p97
+
+        task.spawn(function()
+            while getgenv().AutoClaimChest do
+                task.wait()
+                u5.DailyRewards_Redeem:InvokeServer('SmallDailyDiamonds')
+                u5.DailyRewards_Redeem:InvokeServer('GroupRewards')
+                u5.DailyRewards_Redeem:InvokeServer('TwitterRewards')
+                u5.DailyRewards_Redeem:InvokeServer('DailyPotions')
+                u5.DailyRewards_Redeem:InvokeServer('DailyItems')
+                u5.DailyRewards_Redeem:InvokeServer('DailyEnchants')
+                u5.DailyRewards_Redeem:InvokeServer('MediumDailyDiamonds')
+            end
+        end)
+    end,
+}
+
+AddToggle(v48, v98)
+
+local _Active = ___THINGS.__INSTANCE_CONTAINER.Active
+
+AddSection(v49, {
+    'Mine Games',
+})
+AddTextLabel(v49, {
+    'Obby',
+})
+
+local v103 = {
+    Name = 'Auto Classic Obby',
+    Callback = function(p100)
+        getgenv().ClassicObby = p100
+
+        task.spawn(function()
+            while getgenv().ClassicObby do
+                task.wait()
+
+                if _Active:FindFirstChild('SpawnObby') then
+                    local _Character7 = _LocalPlayer.Character
+
+                    if _Character7 then
+                        _Character7 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character7 then
+                        _Character7.CFrame = CFrame.new(184, 144, -1737)
+
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('SpawnObby', 'ObbyCompleted')
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('SpawnObby', 'ReportTime', 30)
+                    end
+                else
+                    local _Character8 = _LocalPlayer.Character
+
+                    if _Character8 then
+                        _Character8 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character8 then
+                        _Character8.CFrame = CFrame.new(917, 22, -215)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('SpawnObby') or not getgenv().ClassicObby
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v103)
+
+local v107 = {
+    Name = 'Auto Jungle Obby',
+    Callback = function(p104)
+        getgenv().JungleObby = p104
+
+        task.spawn(function()
+            while getgenv().JungleObby do
+                task.wait()
+
+                if _Active:FindFirstChild('JungleObby') then
+                    local _Character9 = _LocalPlayer.Character
+
+                    if _Character9 then
+                        _Character9 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character9 then
+                        _Character9.CFrame = CFrame.new(3304, 186, -498)
+
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('JungleObby', 'ObbyCompleted')
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('JungleObby', 'ReportTime', 30)
+                    end
+                else
+                    local _Character10 = _LocalPlayer.Character
+
+                    if _Character10 then
+                        _Character10 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character10 then
+                        _Character10.CFrame = CFrame.new(529, 22, 424)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('JungleObby') or not getgenv().JungleObby
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v107)
+
+local v111 = {
+    Name = 'Auto Pyramid Obby',
+    Callback = function(p108)
+        getgenv().PyramidObby = p108
+
+        task.spawn(function()
+            while getgenv().PyramidObby do
+                task.wait()
+
+                if _Active:FindFirstChild('PyramidObby') then
+                    local _Character11 = _LocalPlayer.Character
+
+                    if _Character11 then
+                        _Character11 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character11 then
+                        _Character11.CFrame = CFrame.new(-2501, 74, -2856)
+
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('PyramidObby', 'ObbyCompleted')
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('PyramidObby', 'ReportTime', 30)
+                    end
+                else
+                    local _Character12 = _LocalPlayer.Character
+
+                    if _Character12 then
+                        _Character12 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character12 then
+                        _Character12.CFrame = CFrame.new(299, 18, 1192)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('PyramidObby') or not getgenv().PyramidObby
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v111)
+
+local v115 = {
+    Name = 'Auto Ice Obby',
+    Callback = function(p112)
+        getgenv().IceObby = p112
+
+        task.spawn(function()
+            while getgenv().IceObby do
+                task.wait()
+
+                if _Active:FindFirstChild('IceObby') then
+                    local _Character13 = _LocalPlayer.Character
+
+                    if _Character13 then
+                        _Character13 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character13 then
+                        _Character13.CFrame = CFrame.new(4507, 11, -505)
+
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('IceObby', 'ObbyCompleted')
+                        u5.Instancing_InvokeCustomFromClient:InvokeServer('IceObby', 'ReportTime', 30)
+                    end
+                else
+                    local _Character14 = _LocalPlayer.Character
+
+                    if _Character14 then
+                        _Character14 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character14 then
+                        _Character14.CFrame = CFrame.new(968, 21, 1555)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('IceObby') or not getgenv().IceObby
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v115)
+AddTextLabel(v49, {
+    'Others',
+})
+
+local v125 = {
+    Name = 'Auto Atlantis',
+    Callback = function(p116)
+        getgenv().Atlantis = p116
+
+        task.spawn(function()
+            local function v121()
+                local v117, v118, v119 = pairs(_Active.Atlantis.Rings:GetChildren())
+
+                while true do
+                    local v120
+
+                    v119, v120 = v117(v118, v119)
+
+                    if v119 == nil then
+                        break
+                    end
+                    if v120:FindFirstChild('Collision') then
+                        return v120.Collision
+                    end
+                end
+            end
+
+            while getgenv().Atlantis do
+                task.wait()
+
+                if _Active:FindFirstChild('Atlantis') then
+                    if _Active.Atlantis:FindFirstChild('Rings') then
+                        local _Character15 = _LocalPlayer.Character
+
+                        if _Character15 then
+                            _Character15 = _LocalPlayer.Character.PrimaryPart
+                        end
+
+                        local v123 = v121()
+
+                        if _Character15 and v123 then
+                            _Character15.CFrame = v123.CFrame
+                        end
+                    end
+                else
+                    local _Character16 = _LocalPlayer.Character
+
+                    if _Character16 then
+                        _Character16 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character16 then
+                        _Character16.CFrame = CFrame.new(532, -24, 707)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('Atlantis') or not getgenv().Atlantis
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v125)
+
+local v137 = {
+    Name = 'Auto Fishing',
+    Callback = function(p126)
+        getgenv().Fishing = p126
+
+        task.spawn(function()
+            local u127 = false
+
+            local function v133()
+                local _Character17 = _LocalPlayer.Character
+                local v129, v130, v131 = pairs(_Character17:GetChildren())
+
+                while true do
+                    local v132
+
+                    v131, v132 = v129(v130, v131)
+
+                    if v131 == nil then
+                        break
+                    end
+                    if v132:IsA('Tool') and v132:FindFirstChild('Rod') then
+                        return v132.Rod
+                    end
+                end
+            end
+
+            task.spawn(function()
+                while getgenv().Fishing do
+                    task.wait()
+
+                    local _Character18 = _LocalPlayer.Character
+
+                    if _Character18 then
+                        _Character18 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character18 and _Active:FindFirstChild('Fishing') then
+                        _Character18.CFrame = CFrame.new(1128, 78, -3456)
+
+                        if not u127 then
+                            u5.Instancing_FireCustomFromClient:FireServer('Fishing', 'RequestReel')
+                        end
+                    end
+                end
+            end)
+
+            while getgenv().Fishing do
+                task.wait()
+
+                if _Active:FindFirstChild('Fishing') then
+                    if _LocalPlayer.Character then
+                        local v135 = v133()
+
+                        if v135 then
+                            if not v135:FindFirstChild('FishingLine') then
+                                u127 = true
+
+                                u5.Instancing_FireCustomFromClient:FireServer('Fishing', 'RequestCast', Vector3.new(1144, 75, -3453))
+                                task.wait(3)
+
+                                u127 = false
+                            end
+
+                            pcall(function()
+                                require(___THINGS.__INSTANCE_CONTAINER.Active.Fishing.ClientModule.FishingGame).IsFishInBar = function()
+                                    return true
+                                end
+                            end)
+                        else
+                            u5.Instancing_FireCustomFromClient:FireServer('Fishing', 'ClaimRod')
+                        end
+                    end
+                else
+                    local _Character19 = _LocalPlayer.Character
+
+                    if _Character19 then
+                        _Character19 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character19 then
+                        _Character19.CFrame = CFrame.new(796, 23, 1137)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('Fishing') or not getgenv().Fishing
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v137)
+
+local v150 = {
+    Name = 'Auto Chest Rush',
+    Callback = function(p138)
+        getgenv().ChestRush = p138
+
+        task.spawn(function()
+            local function u145()
+                local v139, v140, v141 = pairs(___THINGS.Breakables:GetChildren())
+                local v142 = {}
+
+                while true do
+                    local v143
+
+                    v141, v143 = v139(v140, v141)
+
+                    if v141 == nil then
+                        break
+                    end
+
+                    local _Character20 = _LocalPlayer.Character
+
+                    if _Character20 then
+                        _Character20 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if v143.Name ~= 'Highlight' and _Character20 and (v143.PrimaryPart and (_Character20.Position - v143.PrimaryPart.Position).Magnitude < 80) then
+                        table.insert(v142, v143)
+                    end
+                end
+
+                return v142
+            end
+
+            task.spawn(function()
+                while getgenv().ChestRush do
+                    task.wait()
+                    pcall(function()
+                        u35()
+                        u29()
+
+                        local v146 = u145()[math.random(1, #u145())]
+
+                        if v146 then
+                            u5.Breakables_PlayerDealDamage:FireServer(v146.Name)
+                        end
+                    end)
+                end
+            end)
+
+            while getgenv().ChestRush do
+                task.wait()
+
+                if _Active:FindFirstChild('ChestRush') then
+                    local _Gates = _Active.ChestRush:FindFirstChild('Gates')
+                    local _Character21 = _LocalPlayer.Character
+
+                    if _Character21 then
+                        _Character21 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Gates and _Character21 then
+                        if _Gates:FindFirstChild('1') then
+                            _Character21.CFrame = CFrame.new(-147, -104, -4616)
+                        elseif _Gates:FindFirstChild('2') then
+                            _Character21.CFrame = CFrame.new(-36, -104, -4616)
+                        elseif _Gates:FindFirstChild('3') then
+                            _Character21.CFrame = CFrame.new(71, -104, -4616)
+                        elseif _Gates:FindFirstChild('4') then
+                            _Character21.CFrame = CFrame.new(181, -104, -4613)
+                        elseif _Gates:FindFirstChild('5') then
+                            _Character21.CFrame = CFrame.new(292, -104, -4617)
+                        else
+                            _Character21.CFrame = CFrame.new(406, -104, -4611)
+                        end
+                    end
+                else
+                    local _Character22 = _LocalPlayer.Character
+
+                    if _Character22 then
+                        _Character22 = _LocalPlayer.Character.PrimaryPart
+                    end
+                    if _Character22 then
+                        _Character22.CFrame = CFrame.new(1258, 21, 1798)
+
+                        repeat
+                            task.wait()
+                        until _Active:FindFirstChild('ChestRush') or not getgenv().ChestRush
+
+                        task.wait(1)
+                    end
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v49, v150)
+
+local v151 = _Map
+local v152, v153, v154 = pairs(_Map.GetChildren(v151))
+local u155 = _Map
+local u156 = u5
+local u157 = _LocalPlayer
+local v158 = {
+    '1 | Spawn',
+    '2 | Colorful Forest',
+    '3 | Castle',
+    '4 | Green Forest',
+    '5 | Autumn',
+    '6 | Cherry Blossom',
+    '7 | Farm',
+    '8 | Backyard',
+    '9 | Misty Falls',
+    '10 | Mine',
+    '11 | Crystal Caverns',
+    '12 | Dead Forest',
+    '13 | Dark Forest',
+    '14 | Mushroom Field',
+    '15 | Enchanted Forest',
+    '16 | Crimson Forest',
+    '17 | Jungle',
+    '18 | Jungle Temple',
+    '19 | Oasis',
+    '20 | Beach',
+    '21 | Coral Reef',
+    '22 | Shipwreck',
+    '23 | Atlantis',
+    '24 | Palm Beach',
+    '25 | Tiki',
+    '26 | Pirate Cove',
+    '27 | Pirate Tavern',
+    '28 | Shanty Town',
+    '29 | Desert Village',
+    '30 | Fossil Digsite',
+    '31 | Desert Pyramids',
+    '32 | Red Desert',
+    '33 | Wild West',
+    '34 | Grand Canyons',
+    '35 | Safari',
+    '36 | Mountains',
+    '37 | Snow Village',
+    '38 | Icy Peaks',
+    '39 | Ice Rink',
+    '40 | Ski Town',
+    '41 | Hot Springs',
+    '42 | Fire and Ice',
+    '43 | Volcano',
+    '44 | Obsidian Cave',
+    '45 | Lava Forest',
+    '46 | Underworld',
+    '47 | Underworld Bridge',
+    '48 | Underworld Castle',
+    '49 | Metal Dojo',
+    '50 | Fire Dojo',
+    '51 | Samurai Village',
+    '52 | Bamboo Forest',
+    '53 | Zen Garden',
+    '54 | Flower Field',
+    '55 | Fairytale Meadows',
+    '56 | Fairytale Castle',
+    '57 | Royal Kingdom',
+    '58 | Fairy Castle',
+}
+local u159 = ''
+local u160 = ''
+
+while true do
+    local v161, v162 = v152(v153, v154)
+
+    if v161 == nil then
+        break
+    end
+
+    v154 = v161
+
+    if not table.find(v158, v162.Name) and v162:FindFirstChild('INTERACT') and v162.INTERACT:FindFirstChild('Teleport') then
+        table.insert(v158, v162.Name)
+    end
+end
+
+local v163 = {
+    'Gold Pets',
+    'Rainbow Pets',
+    'Pets Equipped',
+    'Random Potions 1',
+    'Random Potions 2',
+    'Rare Potions',
+    'Upgrade Potions',
+    'Random Enchants 1',
+    'Random Enchants 2',
+    'Upgrade Enchants',
+    'Random Fruits 1',
+    'Random Fruits 2',
+    'Egg Machine',
+    'Daycare',
+    'Fuse Pets',
+    'Regular Merchant',
+    'Advanced Merchant',
+    'Garden Merchant',
+}
+
+local function u166(p164)
+    local function v165(...)
+        u157.Character.PrimaryPart.CFrame = CFrame.new(...)
+    end
+
+    if p164 == 'Pets Equipped' then
+        v165(691, 17, -268)
+    elseif p164 == 'Random Potions 1' then
+        v165(907, 17, -9)
+    elseif p164 == 'Egg Machine' then
+        v165(536, 17, 89)
+    elseif p164 == 'Random Enchants 1' then
+        v165(370, 17, 87)
+    elseif p164 == 'Gold Pets' then
+        v165(158, 17, 12)
+    elseif p164 == 'Upgrade Potions' then
+        v165(531, 17, 325)
+    elseif p164 == 'Random Fruits 1' then
+        v165(692, 17, 324)
+    elseif p164 == 'Upgrade Enchants' then
+        v165(912, 17, 480)
+    elseif p164 == 'Daycare' then
+        v165(127, 19, 509)
+    elseif p164 == 'Random Fruits 2' then
+        v165(1031, 17, 1035)
+    elseif p164 == 'Fuse Pets' then
+        v165(673, 16, 1080)
+    elseif p164 == 'Rainbow Pets' then
+        v165(336, 17, 1316)
+    elseif p164 == 'Random Potions 2' then
+        v165(987, 17, 1318)
+    elseif p164 == 'Random Enchants 2' then
+        v165(795, 17, 1792)
+    elseif p164 == 'Rare Potions' then
+        v165(1479, 19, 1926)
+    elseif p164 == 'Regular Merchant' then
+        v165(371, 16, 565)
+    elseif p164 == 'Advanced Merchant' then
+        v165(818, 17, 1553)
+    elseif p164 == 'Garden Merchant' then
+        v165(259, 17, 2061)
+    end
+end
+
+AddSection(v51, {
+    'Travel',
+})
+AddButton(v51, {
+    Name = 'Travel to Trading Plaza',
+    Callback = function()
+        u156['Travel to Trading Plaza']:InvokeServer()
+    end,
+})
+AddButton(v51, {
+    Name = 'Travel to Main World',
+    Callback = function()
+        u156['Travel to Main World']:InvokeServer()
+    end,
+})
+AddSection(v51, {
+    'Areas',
+})
+AddDropdown(v51, {
+    Name = 'Select Area',
+    Options = v158,
+    Default = v158[1],
+    Callback = function(p167)
+        u159 = p167
+    end,
+})
+AddButton(v51, {
+    Name = 'Teleport To Area',
+    Callback = function()
+        local _Character23 = u157.Character
+
+        if _Character23 then
+            _Character23 = u157.Character.PrimaryPart
+        end
+        if _Character23 then
+            _Character23.CFrame = u155[u159].INTERACT.Teleport.CFrame + Vector3.new(0, 5, 0)
+        end
+    end,
+})
+AddSection(v51, {
+    'Machines',
+})
+AddDropdown(v51, {
+    Name = 'Select Machine',
+    Options = v163,
+    Default = v163[1],
+    Callback = function(p169)
+        u160 = p169
+    end,
+})
+
+local v170 = {
+    Name = 'Teleport To Machine',
+    Callback = function()
+        u166(u160)
+    end,
+}
+
+AddButton(v51, v170)
+
+local u171 = 10
+local v173 = {
+    Name = 'Walk Speed <Standard 36>',
+    MaxValue = 500,
+    MinValue = 20,
+    Default = 50,
+    Increase = 2,
+    Callback = function(p172)
+        u171 = p172
+    end,
+}
+
+AddSlider(v50, v173)
+
+local v175 = {
+    Name = 'Walk Speed',
+    Default = false,
+    Callback = function(p174)
+        getgenv().WalkSpeed = p174
+
+        task.spawn(function()
+            while getgenv().WalkSpeed do
+                task.wait()
+
+                if u157.Character and u157.Character:FindFirstChild('Humanoid') then
+                    u157.Character.Humanoid.WalkSpeed = u171
+                end
+            end
+        end)
+    end,
+}
+
+AddToggle(v50, v175)
+AddToggle(v50, {
+    Name = 'No Clip',
+    Default = false,
+    Callback = function(p176)
+        getgenv().NoClip = p176
+
+        task.spawn(function()
+            while getgenv().NoClip == true do
+                task.wait()
+
+                if u157.Character then
+                    local v177, v178, v179 = pairs(u157.Character:GetChildren())
+
+                    while true do
+                        local v180
+
+                        v179, v180 = v177(v178, v179)
+
+                        if v179 == nil then
+                            break
+                        end
+                        if v180:IsA('Part') or v180:IsA('MeshPart') then
+                            v180.CanCollide = not getgenv().NoClip
+                        end
+                    end
+                end
+            end
+        end)
+    end,
+})
+AddSection(v52, {
+    'Server',
+})
+AddButton(v52, {
+    Name = 'Rejoin Server',
+    Callback = function()
+        game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, game.JobId, u157)
+    end,
+})
+AddButton(v52, {
+    Name = 'Server Hop',
+    Callback = function()
+        u19()
+    end,
+})
+
+for _ = 1, 50 do
+    AddSection(v52, {
+        '',
+    })
+end
+
+AddTextLabel(v52, {
+    'Bom dia',
+})
